@@ -46,6 +46,12 @@ const INVALID_ADMIN_DATA = {
   message: 'Invalid admin data'
 };
 
+const UNAUTHORIZED = {
+  status: 401,
+  code: 'UNAUTHORIZED',
+  message: 'Unauthorized'
+};
+
 module.exports = {
   USER_ALREADY_REGISTERED,
   USER_NOT_FOUND,
@@ -54,5 +60,6 @@ module.exports = {
   ADMIN_ALREADY_REGISTERED,
   ADMIN_NOT_FOUND,
   INVALID_ADMIN_DATA,
-  ADMIN_DELETE_FAILED
+  ADMIN_DELETE_FAILED,
+  UNAUTHORIZED
 };
