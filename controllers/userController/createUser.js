@@ -21,7 +21,7 @@ const createUser = asyncHandler(async (req, res) => {
   console.log(`User created ${user}`);
   if (!user) throw createError(INVALID_USER_DATA);
 
-  res.status(201).json({ _id: user.id, email: user.email });
+  res.status(201).json({ id: user.id, email: user.email });
 });
 
 module.exports = createUser;

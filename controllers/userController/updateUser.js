@@ -9,13 +9,13 @@ const updateUser = asyncHandler(async (req, res) => {
   const user = await User.findOne({ _id: userId });
   if (!user) throw createError(USER_NOT_FOUND);
 
-  const updatedContact = await User.findByIdAndUpdate(
+  const updatedUser = await User.findByIdAndUpdate(
     userId,
     req.body,
     { new: true }
   );
 
-  res.status(200).json(updatedContact);
+  res.status(200).json(updatedUser);
 });
 
 module.exports = updateUser;
