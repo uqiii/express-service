@@ -6,6 +6,13 @@ const getAdminSchema = {
   }).unknown()
 };
 
+const getAdminsSchema = {
+  query: Joi.object().keys({
+    page: Joi.string(),
+    limit: Joi.string()
+  }).unknown()
+};
+
 const deleteAdminSchema = {
   params: Joi.object().keys({
     adminId: Joi.string().required()
@@ -52,5 +59,6 @@ module.exports = {
   deleteAdminSchema,
   updateAdminSchema,
   loginAdminSchema,
-  updateCurrentAdminSchema
+  updateCurrentAdminSchema,
+  getAdminsSchema
 };

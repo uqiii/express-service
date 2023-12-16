@@ -6,6 +6,13 @@ const getUserSchema = {
   }).unknown()
 };
 
+const getUsersSchema = {
+  query: Joi.object().keys({
+    page: Joi.string(),
+    limit: Joi.string()
+  }).unknown()
+};
+
 const deleteUserSchema = {
   params: Joi.object().keys({
     userId: Joi.string().required()
@@ -68,6 +75,13 @@ const addCurrentUserPresenceSchema = {
   }).unknown()
 };
 
+const getCurrentUserPresenceSchema = {
+  query: Joi.object().keys({
+    page: Joi.string(),
+    limit: Joi.string()
+  }).unknown()
+};
+
 module.exports = {
   createUserSchema,
   getUserSchema,
@@ -76,5 +90,7 @@ module.exports = {
   loginUserSchema,
   updateCurrentUserSchema,
   updateCurrentUserPasswordSchema,
-  addCurrentUserPresenceSchema
+  addCurrentUserPresenceSchema,
+  getUsersSchema,
+  getCurrentUserPresenceSchema
 };

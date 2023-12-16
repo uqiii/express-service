@@ -8,8 +8,10 @@ const handleCreateAdmin = asyncHandler(async (req, res) => {
   res.status(201).json(createdAdmin);
 });
 
-const handleGetAdmins = asyncHandler(async (_, res) => {
-  const admins = await getAdmins();
+const handleGetAdmins = asyncHandler(async (req, res) => {
+  const { query: { page, limit } } = req;
+  const pagination = { page, limit };
+  const admins = await getAdmins(pagination);
   res.status(200).json(admins);
 });
 

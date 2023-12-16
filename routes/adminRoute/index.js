@@ -9,7 +9,7 @@ const authenticateAdmin = require('../../middlewares/authenticateAdmin');
 const validateSchema = require('../../middlewares/validateSchema');
 const {
   createAdminSchema, getAdminSchema, deleteAdminSchema, updateAdminSchema,
-  loginAdminSchema, updateCurrentAdminSchema
+  loginAdminSchema, updateCurrentAdminSchema, getAdminsSchema
 } = require('./schema');
 
 const router = express.Router();
@@ -21,6 +21,7 @@ router.route('/admins')
     handleCreateAdmin
   )
   .get(
+    validateSchema(getAdminsSchema),
     authenticateApiKey,
     handleGetAdmins
   );

@@ -12,7 +12,7 @@ const authenticateUser = require('../../middlewares/authenticateUser');
 const {
   createUserSchema, getUserSchema, deleteUserSchema, updateUserSchema,
   loginUserSchema, updateCurrentUserSchema, updateCurrentUserPasswordSchema,
-  addCurrentUserPresenceSchema
+  addCurrentUserPresenceSchema, getUsersSchema, getCurrentUserPresenceSchema
 } = require('./schema');
 
 const router = express.Router();
@@ -25,6 +25,7 @@ router.route('/users')
   )
   .get(
     authenticateAdmin,
+    validateSchema(getUsersSchema),
     handleGetUsers
   );
 
@@ -48,6 +49,7 @@ router.route('/users/current')
 router.route('/users/current/presences')
   .get(
     authenticateUser,
+    validateSchema(getCurrentUserPresenceSchema),
     handleGetPresences
   )
   .post(

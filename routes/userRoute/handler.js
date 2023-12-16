@@ -12,8 +12,10 @@ const handleCreateUser = asyncHandler(async (req, res) => {
   res.status(201).json(createdUser);
 });
 
-const handleGetUsers = asyncHandler(async (_, res) => {
-  const users = await getUsers();
+const handleGetUsers = asyncHandler(async (req, res) => {
+  const { page, limit } = req.query;
+  const pagination = { page, limit };
+  const users = await getUsers(pagination);
   res.status(200).json(users);
 });
 
@@ -71,8 +73,10 @@ const handleAddCurrentUserPresence = asyncHandler(async (req, res) => {
 
 const handleGetPresences = asyncHandler(async (req, res) => {
   const userId = req.user.id;
+  const { limit, page } = req.query;
+  const pagination = { limit, page };
   const query = { userId };
-  const accessToken = await getPresences(query);
+  const accessToken = await getPresences(query, pagination);
   res.status(200).json(accessToken);
 });
 
