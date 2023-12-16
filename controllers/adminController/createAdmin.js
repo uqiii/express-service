@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 const createError = require('../../utils/createError');
 const Admin = require('../../models/admin');
 const { ADMIN_ALREADY_REGISTERED, ADMIN_INVALID_DATA } = require('../../errors');
+const mapAdmin = require('../../mapper/mapAdmin');
 
 const createAdmin = asyncHandler(async (payload) => {
   const { name, email, password } = payload;
@@ -21,11 +22,7 @@ const createAdmin = asyncHandler(async (payload) => {
   console.log(`Admin created ${admin}`);
   if (!admin) throw createError(ADMIN_INVALID_DATA);
 
-  return {
-    id: admin.id,
-    name: admin.name,
-    email: admin.email
-  };
+  return mapAdmin(admin);
 });
 
 module.exports = createAdmin;
