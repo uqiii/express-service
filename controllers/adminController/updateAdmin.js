@@ -16,8 +16,8 @@ const updateAdmin = asyncHandler(async (adminId, payload) => {
   if (!updatedAdmin) throw createError(ADMIN_UPDATE_FAILED);
   return {
     id: updatedAdmin._id,
-    name: updateAdmin.name,
-    email: updateAdmin.email
+    name: updatedAdmin.name,
+    email: updatedAdmin.email
   };
 });
 
