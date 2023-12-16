@@ -4,7 +4,8 @@ const {
   handleCreateUser, handleGetUsers, handleGetUser, handleDeleteUser,
   handleUpdateUser, handleLoginUser, handleUpdateCurrentUser,
   handleGetCurrentUser, handleUpdateCurrentUserPassword,
-  handleAddCurrentUserPresence, handleGetPresences
+  handleAddCurrentUserPresence, handleGetUserPresences,
+  handleGetCurrentUserPresences
 } = require('./handler');
 const validateSchema = require('../../middlewares/validateSchema');
 const authenticateAdmin = require('../../middlewares/authenticateAdmin');
@@ -12,7 +13,8 @@ const authenticateUser = require('../../middlewares/authenticateUser');
 const {
   createUserSchema, getUserSchema, deleteUserSchema, updateUserSchema,
   loginUserSchema, updateCurrentUserSchema, updateCurrentUserPasswordSchema,
-  addCurrentUserPresenceSchema, getUsersSchema, getCurrentUserPresenceSchema
+  addCurrentUserPresenceSchema, getUsersSchema, getCurrentUserPresenceSchema,
+  getUserPresenceSchema
 } = require('./schema');
 
 const router = express.Router();
@@ -50,7 +52,7 @@ router.route('/users/current/presences')
   .get(
     authenticateUser,
     validateSchema(getCurrentUserPresenceSchema),
-    handleGetPresences
+    handleGetCurrentUserPresences
   )
   .post(
     authenticateUser,
@@ -80,6 +82,13 @@ router.route('/users/:userId')
     authenticateAdmin,
     validateSchema(deleteUserSchema),
     handleDeleteUser
+  );
+
+router.route('/users/:userId/presences')
+  .get(
+    authenticateAdmin,
+    validateSchema(getUserPresenceSchema),
+    handleGetUserPresences
   );
 
 module.exports = router;

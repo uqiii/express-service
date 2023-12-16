@@ -71,8 +71,16 @@ const handleAddCurrentUserPresence = asyncHandler(async (req, res) => {
   res.status(200).json(message);
 });
 
-const handleGetPresences = asyncHandler(async (req, res) => {
+const handleGetCurrentUserPresences = asyncHandler(async (req, res) => {
   const userId = req.user.id;
+  const { pagination, query } = unpackQueryParams(req);
+  const enrichedQuery = { ...query, userId };
+  const accessToken = await getPresences(enrichedQuery, pagination);
+  res.status(200).json(accessToken);
+});
+
+const handleGetUserPresences = asyncHandler(async (req, res) => {
+  const { userId } = req.params;
   const { pagination, query } = unpackQueryParams(req);
   const enrichedQuery = { ...query, userId };
   const accessToken = await getPresences(enrichedQuery, pagination);
@@ -90,5 +98,6 @@ module.exports = {
   handleGetCurrentUser,
   handleUpdateCurrentUserPassword,
   handleAddCurrentUserPresence,
-  handleGetPresences
+  handleGetCurrentUserPresences,
+  handleGetUserPresences
 };

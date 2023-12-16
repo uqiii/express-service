@@ -88,6 +88,20 @@ const getCurrentUserPresenceSchema = {
   }).unknown()
 };
 
+const getUserPresenceSchema = {
+  params: Joi.object().keys({
+    userId: Joi.string().required()
+  }).unknown(),
+  query: Joi.object().keys({
+    page: Joi.string(),
+    limit: Joi.string(),
+    sortBy: Joi.string(),
+    orderBy: Joi.string().valid('asc', 'desc'),
+    startDate: Joi.string(),
+    endDate: Joi.string()
+  }).unknown()
+};
+
 module.exports = {
   createUserSchema,
   getUserSchema,
@@ -98,5 +112,6 @@ module.exports = {
   updateCurrentUserPasswordSchema,
   addCurrentUserPresenceSchema,
   getUsersSchema,
-  getCurrentUserPresenceSchema
+  getCurrentUserPresenceSchema,
+  getUserPresenceSchema
 };
