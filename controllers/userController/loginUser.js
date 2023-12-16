@@ -23,7 +23,7 @@ const loginUser = asyncHandler(async (email, password) => {
       }
     },
     process.env.USER_ACCESS_TOKEN_SECRET,
-    { expiresIn: '15m' }
+    { expiresIn: '30m' }
   );
   return accessToken;
 });
