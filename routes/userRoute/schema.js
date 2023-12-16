@@ -19,6 +19,9 @@ const updateUserSchema = {
   body: Joi.object().keys({
     name: Joi.string(),
     email: Joi.string(),
+    phone: Joi.string(),
+    avatar: Joi.string(),
+    position: Joi.string(),
     password: Joi.string().forbidden()
   }).unknown()
 };
@@ -27,6 +30,9 @@ const updateCurrentUserSchema = {
   body: Joi.object().keys({
     name: Joi.string(),
     email: Joi.string(),
+    phone: Joi.string(),
+    avatar: Joi.string(),
+    position: Joi.string().forbidden(),
     password: Joi.string().forbidden()
   }).unknown()
 };
@@ -42,6 +48,7 @@ const createUserSchema = {
   body: Joi.object().keys({
     name: Joi.string().required(),
     email: Joi.string().required(),
+    phone: Joi.string().required(),
     password: Joi.string().required(),
     position: Joi.string().required(),
     avatar: Joi.string()

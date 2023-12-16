@@ -10,6 +10,12 @@ const USER_NOT_FOUND = {
   message: 'User not found'
 };
 
+const USER_EMAIL_PHONE_TAKEN = {
+  status: 403,
+  code: 'USER_EMAIL_PHONE_TAKEN',
+  message: 'User email or phone has already taken'
+};
+
 const USER_DELETE_FAILED = {
   status: 500,
   code: 'USER_DELETE_FAILED',
@@ -107,6 +113,7 @@ module.exports = {
   USER_DELETE_FAILED,
   USER_INVALID_DATA,
   USER_INVALID_PASSWORD,
+  USER_EMAIL_PHONE_TAKEN,
   ADMIN_ALREADY_REGISTERED,
   ADMIN_NOT_FOUND,
   ADMIN_INVALID_DATA,
