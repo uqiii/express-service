@@ -19,6 +19,12 @@ const handleGetUser = asyncHandler(async (req, res) => {
   res.status(200).json(foundUser);
 });
 
+const handleGetCurrentUser = asyncHandler(async (req, res) => {
+  const userId = req.user.id;
+  const foundUser = await getUser(userId);
+  res.status(200).json(foundUser);
+});
+
 const handleDeleteUser = asyncHandler(async (req, res) => {
   const { userId } = req.params;
   await deleteUser(userId);
@@ -27,6 +33,13 @@ const handleDeleteUser = asyncHandler(async (req, res) => {
 
 const handleUpdateUser = asyncHandler(async (req, res) => {
   const { userId } = req.params;
+  const updatePayload = req.body;
+  const updatedUser = await updateUser(userId, updatePayload);
+  res.status(200).json(updatedUser);
+});
+
+const handleUpdateCurrentUser = asyncHandler(async (req, res) => {
+  const userId = req.user.id;
   const updatePayload = req.body;
   const updatedUser = await updateUser(userId, updatePayload);
   res.status(200).json(updatedUser);
@@ -44,5 +57,7 @@ module.exports = {
   handleGetUser,
   handleDeleteUser,
   handleUpdateUser,
-  handleLoginUser
+  handleLoginUser,
+  handleUpdateCurrentUser,
+  handleGetCurrentUser
 };

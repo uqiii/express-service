@@ -23,6 +23,14 @@ const updateUserSchema = {
   }).unknown()
 };
 
+const updateCurrentUserSchema = {
+  body: Joi.object().keys({
+    name: Joi.string(),
+    email: Joi.string(),
+    password: Joi.string().forbidden()
+  }).unknown()
+};
+
 const createUserSchema = {
   body: Joi.object().keys({
     name: Joi.string().required(),
@@ -43,5 +51,6 @@ module.exports = {
   getUserSchema,
   deleteUserSchema,
   updateUserSchema,
-  loginUserSchema
+  loginUserSchema,
+  updateCurrentUserSchema
 };
