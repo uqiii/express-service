@@ -23,6 +23,14 @@ const updateAdminSchema = {
   }).unknown()
 };
 
+const updateCurrentAdminSchema = {
+  body: Joi.object().keys({
+    name: Joi.string(),
+    email: Joi.string(),
+    password: Joi.string().forbidden()
+  }).unknown()
+};
+
 const createAdminSchema = {
   body: Joi.object().keys({
     name: Joi.string().required(),
@@ -43,5 +51,6 @@ module.exports = {
   getAdminSchema,
   deleteAdminSchema,
   updateAdminSchema,
-  loginAdminSchema
+  loginAdminSchema,
+  updateCurrentAdminSchema
 };

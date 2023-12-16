@@ -19,6 +19,12 @@ const handleGetAdmin = asyncHandler(async (req, res) => {
   res.status(200).json(foundAdmin);
 });
 
+const handleGetCurrentAdmin = asyncHandler(async (req, res) => {
+  const adminId = req.user.id;
+  const foundAdmin = await getAdmin(adminId);
+  res.status(200).json(foundAdmin);
+});
+
 const handleDeleteAdmin = asyncHandler(async (req, res) => {
   const { adminId } = req.params;
   await deleteAdmin(adminId);
@@ -27,6 +33,13 @@ const handleDeleteAdmin = asyncHandler(async (req, res) => {
 
 const handleUpdateAdmin = asyncHandler(async (req, res) => {
   const { adminId } = req.params;
+  const updatePayload = req.body;
+  const updatedAdmin = await updateAdmin(adminId, updatePayload);
+  res.status(200).json(updatedAdmin);
+});
+
+const handleUpdateCurrentAdmin = asyncHandler(async (req, res) => {
+  const adminId = req.user.id;
   const updatePayload = req.body;
   const updatedAdmin = await updateAdmin(adminId, updatePayload);
   res.status(200).json(updatedAdmin);
@@ -44,5 +57,7 @@ module.exports = {
   handleGetAdmin,
   handleDeleteAdmin,
   handleUpdateAdmin,
-  handleLoginAdmin
+  handleLoginAdmin,
+  handleGetCurrentAdmin,
+  handleUpdateCurrentAdmin
 };
