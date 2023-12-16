@@ -10,6 +10,9 @@
   },
   "author": "uqiii",
   "license": "ISC",
+  "engines": {
+    "node": ">=16"
+  },
   "dependencies": {
     "@hapi/joi": "^17.1.1",
     "bcrypt": "^5.1.1",
