@@ -4,7 +4,10 @@ const unpackQueryParams = (req) => {
   } = req.query;
   return {
     pagination: {
-      page, limit, sortBy, orderBy
+      page: page ? parseInt(page, 10) : 1,
+      limit: limit ? parseInt(limit, 10) : 10,
+      sortBy: sortBy || 'createdAt',
+      orderBy: orderBy === 'desc' ? -1 : 1
     },
     query
   };

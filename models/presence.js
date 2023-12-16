@@ -1,9 +1,10 @@
+const { ObjectId } = require('mongodb');
 const mongoose = require('mongoose');
 
 const adminSchema = mongoose.Schema(
   {
     userId: {
-      type: String,
+      type: ObjectId,
       required: [true, 'Please add the user id']
     },
     checkIn: {
