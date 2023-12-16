@@ -9,7 +9,9 @@ const getAdminSchema = {
 const getAdminsSchema = {
   query: Joi.object().keys({
     page: Joi.string(),
-    limit: Joi.string()
+    limit: Joi.string(),
+    sortBy: Joi.string(),
+    orderBy: Joi.string().valid('asc', 'desc')
   }).unknown()
 };
 

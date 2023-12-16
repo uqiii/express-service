@@ -4,12 +4,21 @@ const Presence = require('../../models/presence');
 const mapPresence = require('../../mapper/mapPresence');
 
 const getPresences = asyncHandler(async (query, pagination) => {
-  const { limit = 10, page = 1 } = pagination;
+  const {
+    page = 1, limit = 10, sortBy = 'createdAt', orderBy = -1
+  } = pagination;
+  const { userId, startDate, endDate } = query;
   const users = await Presence
-    .find(query)
+    .find({
+      userId,
+      checkIn: {
+        $gte: startDate,
+        $lte: endDate
+      }
+    })
     .limit(limit)
     .skip((page - 1) * limit)
-    .sort({ createdAt: -1 });
+    .sort({ [sortBy]: orderBy });
 
   return users.map(mapPresence);
 });

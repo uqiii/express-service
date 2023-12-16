@@ -9,7 +9,9 @@ const getUserSchema = {
 const getUsersSchema = {
   query: Joi.object().keys({
     page: Joi.string(),
-    limit: Joi.string()
+    limit: Joi.string(),
+    sortBy: Joi.string(),
+    orderBy: Joi.string().valid('asc', 'desc')
   }).unknown()
 };
 
@@ -78,7 +80,11 @@ const addCurrentUserPresenceSchema = {
 const getCurrentUserPresenceSchema = {
   query: Joi.object().keys({
     page: Joi.string(),
-    limit: Joi.string()
+    limit: Joi.string(),
+    sortBy: Joi.string(),
+    orderBy: Joi.string().valid('asc', 'desc'),
+    startDate: Joi.string(),
+    endDate: Joi.string()
   }).unknown()
 };
 

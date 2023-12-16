@@ -2,6 +2,7 @@ const asyncHandler = require('express-async-handler');
 const {
   createAdmin, getAdmins, getAdmin, deleteAdmin, updateAdmin, loginAdmin
 } = require('../../controllers/adminController');
+const unpackQueryParams = require('../../utils/unpackQueryParams');
 
 const handleCreateAdmin = asyncHandler(async (req, res) => {
   const createdAdmin = await createAdmin(req.body);
@@ -9,8 +10,7 @@ const handleCreateAdmin = asyncHandler(async (req, res) => {
 });
 
 const handleGetAdmins = asyncHandler(async (req, res) => {
-  const { query: { page, limit } } = req;
-  const pagination = { page, limit };
+  const { pagination } = unpackQueryParams(req);
   const admins = await getAdmins(pagination);
   res.status(200).json(admins);
 });

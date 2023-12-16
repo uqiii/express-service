@@ -6,7 +6,7 @@ const Presence = require('../../models/presence');
 const { USER_ALREADY_CHECKED_IN, USER_ALREADY_CHECKED_OUT, USER_HAS_NOT_CHECKED_IN } = require('../../errors');
 const mapPresence = require('../../mapper/mapPresence');
 
-const handleCheckIn = (userId, userTodayPresence) => {
+const handleCheckIn = (userTodayPresence, userId) => {
   if (userTodayPresence) throw createError(USER_ALREADY_CHECKED_IN);
 
   return Presence.create({

@@ -6,6 +6,7 @@ const {
 const {
   addPresence, getPresences
 } = require('../../controllers/presenceController');
+const unpackQueryParams = require('../../utils/unpackQueryParams');
 
 const handleCreateUser = asyncHandler(async (req, res) => {
   const createdUser = await createUser(req.body);
@@ -13,8 +14,7 @@ const handleCreateUser = asyncHandler(async (req, res) => {
 });
 
 const handleGetUsers = asyncHandler(async (req, res) => {
-  const { page, limit } = req.query;
-  const pagination = { page, limit };
+  const { pagination } = unpackQueryParams(req);
   const users = await getUsers(pagination);
   res.status(200).json(users);
 });
@@ -73,10 +73,9 @@ const handleAddCurrentUserPresence = asyncHandler(async (req, res) => {
 
 const handleGetPresences = asyncHandler(async (req, res) => {
   const userId = req.user.id;
-  const { limit, page } = req.query;
-  const pagination = { limit, page };
-  const query = { userId };
-  const accessToken = await getPresences(query, pagination);
+  const { pagination, query } = unpackQueryParams(req);
+  const enrichedQuery = { ...query, userId };
+  const accessToken = await getPresences(enrichedQuery, pagination);
   res.status(200).json(accessToken);
 });
 
