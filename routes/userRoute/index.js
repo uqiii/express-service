@@ -1,8 +1,9 @@
 const express = require('express');
 
 const {
-  createUser, getUsers, getUser, deleteUser, updateUser, loginUser
-} = require('../../controllers/userController');
+  handleCreateUser, handleGetUsers, handleGetUser, handleDeleteUser,
+  handleUpdateUser, handleLoginUser
+} = require('./handler');
 const validateSchema = require('../../middlewares/validateSchema');
 const authenticateAdmin = require('../../middlewares/authenticateAdmin');
 const {
@@ -16,34 +17,34 @@ router.route('/users')
   .post(
     authenticateAdmin,
     validateSchema(createUserSchema),
-    createUser
+    handleCreateUser
   )
   .get(
     authenticateAdmin,
-    getUsers
+    handleGetUsers
   );
 
 router.route('/users/login')
   .post(
     validateSchema(loginUserSchema),
-    loginUser
+    handleLoginUser
   );
 
 router.route('/users/:userId')
   .get(
     authenticateAdmin,
     validateSchema(getUserSchema),
-    getUser
+    handleGetUser
   )
   .patch(
     authenticateAdmin,
     validateSchema(updateUserSchema),
-    updateUser
+    handleUpdateUser
   )
   .delete(
     authenticateAdmin,
     validateSchema(deleteUserSchema),
-    deleteUser
+    handleDeleteUser
   );
 
 module.exports = router;

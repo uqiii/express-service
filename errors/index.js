@@ -16,9 +16,15 @@ const USER_DELETE_FAILED = {
   message: 'Failed to delete user'
 };
 
-const INVALID_USER_DATA = {
+const USER_UPDATE_FAILED = {
+  status: 500,
+  code: 'USER_UPDATE_FAILED',
+  message: 'Failed to update user'
+};
+
+const USER_INVALID_DATA = {
   status: 400,
-  code: 'INVALID_USER_DATA',
+  code: 'USER_INVALID_DATA',
   message: 'Invalid user data'
 };
 
@@ -40,9 +46,9 @@ const ADMIN_DELETE_FAILED = {
   message: 'Failed to delete admin'
 };
 
-const INVALID_ADMIN_DATA = {
+const ADMIN_INVALID_DATA = {
   status: 400,
-  code: 'INVALID_ADMIN_DATA',
+  code: 'ADMIN_INVALID_DATA',
   message: 'Invalid admin data'
 };
 
@@ -76,15 +82,23 @@ const INVALID_USER_LOGIN = {
   message: 'Invalid email or password'
 };
 
+const ADMIN_UPDATE_FAILED = {
+  status: 500,
+  code: 'UPDATE_ADMIN_FAILED',
+  message: 'Failed when updating admin'
+};
+
 module.exports = {
   USER_ALREADY_REGISTERED,
   USER_NOT_FOUND,
-  INVALID_USER_DATA,
+  USER_UPDATE_FAILED,
   USER_DELETE_FAILED,
+  USER_INVALID_DATA,
   ADMIN_ALREADY_REGISTERED,
   ADMIN_NOT_FOUND,
-  INVALID_ADMIN_DATA,
+  ADMIN_INVALID_DATA,
   ADMIN_DELETE_FAILED,
+  ADMIN_UPDATE_FAILED,
   UNAUTHORIZED,
   UNAUTHORIZED_ADMIN,
   INVALID_TOKEN,

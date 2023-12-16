@@ -3,10 +3,10 @@ const bcrypt = require('bcrypt');
 
 const createError = require('../../utils/createError');
 const Admin = require('../../models/admin');
-const { ADMIN_ALREADY_REGISTERED, INVALID_ADMIN_DATA } = require('../../errors');
+const { ADMIN_ALREADY_REGISTERED, ADMIN_INVALID_DATA } = require('../../errors');
 
-const createAdmin = asyncHandler(async (req, res) => {
-  const { name, email, password } = req.body;
+const createAdmin = asyncHandler(async (payload) => {
+  const { name, email, password } = payload;
   const adminAvailable = await Admin.findOne({ email });
   if (adminAvailable) throw createError(ADMIN_ALREADY_REGISTERED);
 
@@ -19,9 +19,13 @@ const createAdmin = asyncHandler(async (req, res) => {
   });
 
   console.log(`Admin created ${admin}`);
-  if (!admin) throw createError(INVALID_ADMIN_DATA);
+  if (!admin) throw createError(ADMIN_INVALID_DATA);
 
-  res.status(201).json({ id: admin.id, email: admin.email });
+  return {
+    id: admin.id,
+    name: admin.name,
+    email: admin.email
+  };
 });
 
 module.exports = createAdmin;

@@ -18,7 +18,8 @@ const updateAdminSchema = {
   }).unknown(),
   body: Joi.object().keys({
     name: Joi.string(),
-    email: Joi.string()
+    email: Joi.string(),
+    password: Joi.string().forbidden()
   }).unknown()
 };
 

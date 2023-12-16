@@ -6,9 +6,7 @@ const createError = require('../../utils/createError');
 const User = require('../../models/user');
 const { INVALID_USER_LOGIN } = require('../../errors');
 
-const loginUser = asyncHandler(async (req, res) => {
-  const { email, password } = req.body;
-
+const loginUser = asyncHandler(async (email, password) => {
   const user = await User.findOne({ email });
   const isUserFoundAndPasswordMatch = user && await bcrypt.compare(password, user.password);
 
@@ -27,7 +25,7 @@ const loginUser = asyncHandler(async (req, res) => {
     process.env.USER_ACCESS_TOKEN_SECRET,
     { expiresIn: '15m' }
   );
-  res.status(200).json({ accessToken });
+  return accessToken;
 });
 
 module.exports = loginUser;

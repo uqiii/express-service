@@ -6,11 +6,9 @@ const createError = require('../../utils/createError');
 const Admin = require('../../models/admin');
 const { INVALID_ADMIN_LOGIN } = require('../../errors');
 
-const loginAdmin = asyncHandler(async (req, res) => {
-  const { email, password } = req.body;
-
-  const user = await Admin.findOne({ email });
-  const isAdminFoundAndPasswordMatch = user && await bcrypt.compare(password, user.password);
+const loginAdmin = asyncHandler(async (email, password) => {
+  const admin = await Admin.findOne({ email });
+  const isAdminFoundAndPasswordMatch = admin && await bcrypt.compare(password, admin.password);
 
   if (!isAdminFoundAndPasswordMatch) {
     throw createError(INVALID_ADMIN_LOGIN);
@@ -18,16 +16,16 @@ const loginAdmin = asyncHandler(async (req, res) => {
   const accessToken = jwt.sign(
     {
       user: {
-        username: user.username,
-        email: user.email,
-        id: user.id,
+        username: admin.username,
+        email: admin.email,
+        id: admin.id,
         role: 'ADMIN'
       }
     },
     process.env.ADMIN_ACCESS_TOKEN_SECRET,
     { expiresIn: '15m' }
   );
-  res.status(200).json({ accessToken });
+  return accessToken;
 });
 
 module.exports = loginAdmin;

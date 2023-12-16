@@ -3,10 +3,10 @@ const bcrypt = require('bcrypt');
 
 const createError = require('../../utils/createError');
 const User = require('../../models/user');
-const { USER_ALREADY_REGISTERED, INVALID_USER_DATA } = require('../../errors');
+const { USER_ALREADY_REGISTERED, USER_INVALID_DATA } = require('../../errors');
 
-const createUser = asyncHandler(async (req, res) => {
-  const { name, email, password } = req.body;
+const createUser = asyncHandler(async (payload) => {
+  const { name, email, password } = payload;
   const userAvailable = await User.findOne({ email });
   if (userAvailable) throw createError(USER_ALREADY_REGISTERED);
 
@@ -19,9 +19,9 @@ const createUser = asyncHandler(async (req, res) => {
   });
 
   console.log(`User created ${user}`);
-  if (!user) throw createError(INVALID_USER_DATA);
+  if (!user) throw createError(USER_INVALID_DATA);
 
-  res.status(201).json({ id: user.id, email: user.email });
+  return { id: user.id, name: user.name, email: user.email };
 });
 
 module.exports = createUser;

@@ -2,20 +2,23 @@ const asyncHandler = require('express-async-handler');
 
 const Admin = require('../../models/admin');
 const createError = require('../../utils/createError');
-const { ADMIN_NOT_FOUND } = require('../../errors');
+const { ADMIN_NOT_FOUND, ADMIN_UPDATE_FAILED } = require('../../errors');
 
-const updateAdmin = asyncHandler(async (req, res) => {
-  const { adminId } = req.params;
+const updateAdmin = asyncHandler(async (adminId, payload) => {
   const admin = await Admin.findOne({ _id: adminId });
   if (!admin) throw createError(ADMIN_NOT_FOUND);
 
   const updatedAdmin = await Admin.findByIdAndUpdate(
     adminId,
-    req.body,
+    payload,
     { new: true }
   );
-
-  res.status(200).json(updatedAdmin);
+  if (!updatedAdmin) throw createError(ADMIN_UPDATE_FAILED);
+  return {
+    id: updatedAdmin._id,
+    name: updateAdmin.name,
+    email: updateAdmin.email
+  };
 });
 
 module.exports = updateAdmin;

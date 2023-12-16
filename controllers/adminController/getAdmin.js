@@ -4,8 +4,7 @@ const createError = require('../../utils/createError');
 const Admin = require('../../models/admin');
 const { ADMIN_NOT_FOUND } = require('../../errors');
 
-const getAdmin = asyncHandler(async (req, res) => {
-  const { adminId } = req.params;
+const getAdmin = asyncHandler(async (adminId) => {
   const admin = await Admin.findOne({ _id: adminId });
   if (!admin) throw createError(ADMIN_NOT_FOUND);
 
@@ -14,7 +13,7 @@ const getAdmin = asyncHandler(async (req, res) => {
     name: admin.name,
     email: admin.email
   };
-  res.status(200).json(mappedAdmin);
+  return mappedAdmin;
 });
 
 module.exports = getAdmin;

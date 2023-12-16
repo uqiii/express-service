@@ -4,8 +4,7 @@ const createError = require('../../utils/createError');
 const User = require('../../models/user');
 const { USER_NOT_FOUND } = require('../../errors');
 
-const getUser = asyncHandler(async (req, res) => {
-  const { userId } = req.params;
+const getUser = asyncHandler(async (userId) => {
   const user = await User.findOne({ _id: userId });
   if (!user) throw createError(USER_NOT_FOUND);
 
@@ -14,7 +13,7 @@ const getUser = asyncHandler(async (req, res) => {
     name: user.name,
     email: user.email
   };
-  res.status(200).json(mappedUser);
+  return mappedUser;
 });
 
 module.exports = getUser;

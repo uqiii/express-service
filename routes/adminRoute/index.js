@@ -1,9 +1,9 @@
 const express = require('express');
 
 const {
-  createAdmin, getAdmins, getAdmin, deleteAdmin, updateAdmin,
-  loginAdmin
-} = require('../../controllers/adminController');
+  handleCreateAdmin, handleGetAdmins, handleGetAdmin, handleDeleteAdmin, handleUpdateAdmin,
+  handleLoginAdmin
+} = require('./handler');
 const authenticateApiKey = require('../../middlewares/authenticateApiKey');
 const validateSchema = require('../../middlewares/validateSchema');
 const {
@@ -17,34 +17,34 @@ router.route('/admins')
   .post(
     authenticateApiKey,
     validateSchema(createAdminSchema),
-    createAdmin
+    handleCreateAdmin
   )
   .get(
     authenticateApiKey,
-    getAdmins
+    handleGetAdmins
   );
 
 router.route('/admins/login')
   .post(
     validateSchema(loginAdminSchema),
-    loginAdmin
+    handleLoginAdmin
   );
 
 router.route('/admins/:adminId')
   .get(
     authenticateApiKey,
     validateSchema(getAdminSchema),
-    getAdmin
+    handleGetAdmin
   )
   .patch(
     authenticateApiKey,
     validateSchema(updateAdminSchema),
-    updateAdmin
+    handleUpdateAdmin
   )
   .delete(
     authenticateApiKey,
     validateSchema(deleteAdminSchema),
-    deleteAdmin
+    handleDeleteAdmin
   );
 
 module.exports = router;
