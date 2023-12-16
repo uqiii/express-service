@@ -52,6 +52,24 @@ const UNAUTHORIZED = {
   message: 'Unauthorized'
 };
 
+const INVALID_TOKEN = {
+  status: 401,
+  code: 'INVALID_TOKEN',
+  message: 'Invalid token or token is missing'
+};
+
+const UNAUTHORIZED_ADMIN = {
+  status: 401,
+  code: 'UNAUTHORIZED_ADMIN',
+  message: 'Admin is unauthorized or token is missing'
+};
+
+const INVALID_ADMIN_LOGIN = {
+  status: 401,
+  code: 'INVALID_ADMIN_LOGIN',
+  message: 'Invalid email or password'
+};
+
 module.exports = {
   USER_ALREADY_REGISTERED,
   USER_NOT_FOUND,
@@ -61,5 +79,8 @@ module.exports = {
   ADMIN_NOT_FOUND,
   INVALID_ADMIN_DATA,
   ADMIN_DELETE_FAILED,
-  UNAUTHORIZED
+  UNAUTHORIZED,
+  UNAUTHORIZED_ADMIN,
+  INVALID_TOKEN,
+  INVALID_ADMIN_LOGIN
 };

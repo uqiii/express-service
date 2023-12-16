@@ -30,9 +30,17 @@ const createAdminSchema = {
   }).unknown()
 };
 
+const loginAdminSchema = {
+  body: Joi.object().keys({
+    email: Joi.string().required(),
+    password: Joi.string().required()
+  }).unknown()
+};
+
 module.exports = {
   createAdminSchema,
   getAdminSchema,
   deleteAdminSchema,
-  updateAdminSchema
+  updateAdminSchema,
+  loginAdminSchema
 };
