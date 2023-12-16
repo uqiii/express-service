@@ -1,6 +1,5 @@
 const asyncHandler = require('express-async-handler');
 const moment = require('moment');
-const { ObjectId } = require('mongodb');
 
 const Presence = require('../../models/presence');
 
@@ -8,17 +7,14 @@ const getPresences = asyncHandler(async (query, pagination) => {
   const {
     page, limit, sortBy, orderBy
   } = pagination;
-  const startOfThisMonth = moment().startOf('month').toDate();
-  const endOfThisDay = moment().endOf('day').toDate();
-  const { userId, startDate = startOfThisMonth, endDate = endOfThisDay } = query;
+  const { startDate, endDate } = query;
 
   const presences = await Presence.aggregate([
     {
       $match: {
-        ...userId ? { userId: new ObjectId(userId) } : {},
         checkIn: {
-          $gte: startDate,
-          $lte: endDate
+          $gte: startDate ? moment(startDate).toDate() : moment().startOf('month').toDate(),
+          $lte: endDate ? moment(endDate).toDate() : moment().endOf('day').toDate()
         }
       }
     },
@@ -40,11 +36,23 @@ const getPresences = asyncHandler(async (query, pagination) => {
         userName: '$userDetails.name'
       }
     },
+    { $sort: { [sortBy]: orderBy } },
+    {
+      $group: {
+        _id: { $dateToString: { format: '%Y-%m-%d', date: '$checkIn' } },
+        userPresences: { $push: '$$ROOT' }
+      }
+    },
+    {
+      $project: {
+        _id: 0,
+        date: '$_id',
+        userPresences: 1
+      }
+    },
     { $skip: (page - 1) * limit },
-    { $limit: limit },
-    { $sort: { [sortBy]: orderBy } }
+    { $limit: limit }
   ]);
-
   return presences;
 });
 

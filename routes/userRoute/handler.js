@@ -4,7 +4,7 @@ const {
   updateUserPassword
 } = require('../../controllers/userController');
 const {
-  addPresence, getPresences
+  addPresence, getUserPresences
 } = require('../../controllers/presenceController');
 const unpackQueryParams = require('../../utils/unpackQueryParams');
 
@@ -75,7 +75,7 @@ const handleGetCurrentUserPresences = asyncHandler(async (req, res) => {
   const userId = req.user.id;
   const { pagination, query } = unpackQueryParams(req);
   const enrichedQuery = { ...query, userId };
-  const accessToken = await getPresences(enrichedQuery, pagination);
+  const accessToken = await getUserPresences(enrichedQuery, pagination);
   res.status(200).json(accessToken);
 });
 
@@ -83,7 +83,7 @@ const handleGetUserPresences = asyncHandler(async (req, res) => {
   const { userId } = req.params;
   const { pagination, query } = unpackQueryParams(req);
   const enrichedQuery = { ...query, userId };
-  const accessToken = await getPresences(enrichedQuery, pagination);
+  const accessToken = await getUserPresences(enrichedQuery, pagination);
   res.status(200).json(accessToken);
 });
 

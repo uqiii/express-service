@@ -1,7 +1,9 @@
 const addPresence = require('./addPresence');
-const getPresences = require('./getPresences');
+const getUserPresences = require('./getUserPresences');
+const getAllPresences = require('./getAllPresences');
 
 module.exports = {
   addPresence,
-  getPresences
+  getUserPresences,
+  getAllPresences
 };
