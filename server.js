@@ -7,13 +7,21 @@ const errorHandler = require('./middlewares/errorHandler');
 
 const port = process.env.PORT || 3000;
 
-connectDb();
-const app = express();
+const runServer = async () => {
+  console.log('Connecting to database...');
+  await connectDb();
+  console.log('Starting service...');
+  const app = express();
+  app.use(express.json());
+  console.log('Registering routes...');
+  routes.forEach((route) => app.use(route));
+  console.log('All routes has been registered');
+  app.use(errorHandler);
 
-app.use(express.json());
-routes.forEach((route) => app.use(route));
-app.use(errorHandler);
+  app.listen(port, () => {
+    console.log(`App is listening on port: ${port}`);
+    console.log('Service successfully started!');
+  });
+};
 
-app.listen(port, () => {
-  console.log(`App is listening on port: ${port}`);
-});
+runServer();
