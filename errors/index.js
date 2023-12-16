@@ -70,6 +70,12 @@ const UNAUTHORIZED_ADMIN = {
   message: 'Admin is unauthorized or token is missing'
 };
 
+const UNAUTHORIZED_USER = {
+  status: 401,
+  code: 'UNAUTHORIZED_USER',
+  message: 'User is unauthorized or token is missing'
+};
+
 const INVALID_ADMIN_LOGIN = {
   status: 401,
   code: 'INVALID_ADMIN_LOGIN',
@@ -101,6 +107,7 @@ module.exports = {
   ADMIN_UPDATE_FAILED,
   UNAUTHORIZED,
   UNAUTHORIZED_ADMIN,
+  UNAUTHORIZED_USER,
   INVALID_TOKEN,
   INVALID_ADMIN_LOGIN,
   INVALID_USER_LOGIN
