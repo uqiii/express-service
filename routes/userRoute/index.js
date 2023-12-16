@@ -3,14 +3,14 @@ const express = require('express');
 const {
   handleCreateUser, handleGetUsers, handleGetUser, handleDeleteUser,
   handleUpdateUser, handleLoginUser, handleUpdateCurrentUser,
-  handleGetCurrentUser
+  handleGetCurrentUser, handleUpdateCurrentUserPassword
 } = require('./handler');
 const validateSchema = require('../../middlewares/validateSchema');
 const authenticateAdmin = require('../../middlewares/authenticateAdmin');
 const authenticateUser = require('../../middlewares/authenticateUser');
 const {
   createUserSchema, getUserSchema, deleteUserSchema, updateUserSchema,
-  loginUserSchema, updateCurrentUserSchema
+  loginUserSchema, updateCurrentUserSchema, updateCurrentUserPasswordSchema
 } = require('./schema');
 
 const router = express.Router();
@@ -41,6 +41,13 @@ router.route('/users/current')
     authenticateUser,
     validateSchema(updateCurrentUserSchema),
     handleUpdateCurrentUser
+  );
+
+router.route('/users/current/update-password')
+  .post(
+    authenticateUser,
+    validateSchema(updateCurrentUserPasswordSchema),
+    handleUpdateCurrentUserPassword
   );
 
 router.route('/users/:userId')

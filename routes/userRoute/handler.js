@@ -1,6 +1,7 @@
 const asyncHandler = require('express-async-handler');
 const {
-  createUser, getUsers, getUser, deleteUser, updateUser, loginUser
+  createUser, getUsers, getUser, deleteUser, updateUser, loginUser,
+  updateUserPassword
 } = require('../../controllers/userController');
 
 const handleCreateUser = asyncHandler(async (req, res) => {
@@ -45,6 +46,13 @@ const handleUpdateCurrentUser = asyncHandler(async (req, res) => {
   res.status(200).json(updatedUser);
 });
 
+const handleUpdateCurrentUserPassword = asyncHandler(async (req, res) => {
+  const userId = req.user.id;
+  const payload = req.body;
+  const updatedUser = await updateUserPassword(userId, payload);
+  res.status(200).json(updatedUser);
+});
+
 const handleLoginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
   const accessToken = await loginUser(email, password);
@@ -59,5 +67,6 @@ module.exports = {
   handleUpdateUser,
   handleLoginUser,
   handleUpdateCurrentUser,
-  handleGetCurrentUser
+  handleGetCurrentUser,
+  handleUpdateCurrentUserPassword
 };

@@ -28,6 +28,12 @@ const USER_INVALID_DATA = {
   message: 'Invalid user data'
 };
 
+const USER_INVALID_PASSWORD = {
+  status: 403,
+  code: 'USER_INVALID_PASSWORD',
+  message: 'Invalid password'
+};
+
 const ADMIN_ALREADY_REGISTERED = {
   status: 400,
   code: 'ADMIN_ALREADY_REGISTERED',
@@ -100,6 +106,7 @@ module.exports = {
   USER_UPDATE_FAILED,
   USER_DELETE_FAILED,
   USER_INVALID_DATA,
+  USER_INVALID_PASSWORD,
   ADMIN_ALREADY_REGISTERED,
   ADMIN_NOT_FOUND,
   ADMIN_INVALID_DATA,
