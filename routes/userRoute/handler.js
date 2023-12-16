@@ -3,6 +3,9 @@ const {
   createUser, getUsers, getUser, deleteUser, updateUser, loginUser,
   updateUserPassword
 } = require('../../controllers/userController');
+const {
+  addPresence, getPresences
+} = require('../../controllers/presenceController');
 
 const handleCreateUser = asyncHandler(async (req, res) => {
   const createdUser = await createUser(req.body);
@@ -59,6 +62,20 @@ const handleLoginUser = asyncHandler(async (req, res) => {
   res.status(200).json({ accessToken });
 });
 
+const handleAddCurrentUserPresence = asyncHandler(async (req, res) => {
+  const userId = req.user.id;
+  const { type } = req.query;
+  const message = await addPresence(userId, type);
+  res.status(200).json(message);
+});
+
+const handleGetPresences = asyncHandler(async (req, res) => {
+  const userId = req.user.id;
+  const query = { userId };
+  const accessToken = await getPresences(query);
+  res.status(200).json(accessToken);
+});
+
 module.exports = {
   handleCreateUser,
   handleGetUsers,
@@ -68,5 +85,7 @@ module.exports = {
   handleLoginUser,
   handleUpdateCurrentUser,
   handleGetCurrentUser,
-  handleUpdateCurrentUserPassword
+  handleUpdateCurrentUserPassword,
+  handleAddCurrentUserPresence,
+  handleGetPresences
 };

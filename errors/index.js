@@ -4,6 +4,24 @@ const USER_ALREADY_REGISTERED = {
   message: 'User already registered'
 };
 
+const USER_ALREADY_CHECKED_IN = {
+  status: 403,
+  code: 'USER_ALREADY_CHECKED_IN',
+  message: 'User has already checked in'
+};
+
+const USER_HAS_NOT_CHECKED_IN = {
+  status: 403,
+  code: 'USER_HAS_NOT_CHECKED_IN',
+  message: 'User has not checked in'
+};
+
+const USER_ALREADY_CHECKED_OUT = {
+  status: 403,
+  code: 'USER_ALREADY_CHECKED_OUT',
+  message: 'User has already checked out'
+};
+
 const USER_NOT_FOUND = {
   status: 404,
   code: 'USER_NOT_FOUND',
@@ -114,6 +132,9 @@ module.exports = {
   USER_INVALID_DATA,
   USER_INVALID_PASSWORD,
   USER_EMAIL_PHONE_TAKEN,
+  USER_ALREADY_CHECKED_IN,
+  USER_HAS_NOT_CHECKED_IN,
+  USER_ALREADY_CHECKED_OUT,
   ADMIN_ALREADY_REGISTERED,
   ADMIN_NOT_FOUND,
   ADMIN_INVALID_DATA,

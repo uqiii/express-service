@@ -62,6 +62,12 @@ const loginUserSchema = {
   }).unknown()
 };
 
+const addCurrentUserPresenceSchema = {
+  query: Joi.object().keys({
+    type: Joi.string().valid('IN', 'OUT').required()
+  }).unknown()
+};
+
 module.exports = {
   createUserSchema,
   getUserSchema,
@@ -69,5 +75,6 @@ module.exports = {
   updateUserSchema,
   loginUserSchema,
   updateCurrentUserSchema,
-  updateCurrentUserPasswordSchema
+  updateCurrentUserPasswordSchema,
+  addCurrentUserPresenceSchema
 };
