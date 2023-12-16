@@ -70,6 +70,12 @@ const INVALID_ADMIN_LOGIN = {
   message: 'Invalid email or password'
 };
 
+const INVALID_USER_LOGIN = {
+  status: 401,
+  code: 'INVALID_USER_LOGIN',
+  message: 'Invalid email or password'
+};
+
 module.exports = {
   USER_ALREADY_REGISTERED,
   USER_NOT_FOUND,
@@ -82,5 +88,6 @@ module.exports = {
   UNAUTHORIZED,
   UNAUTHORIZED_ADMIN,
   INVALID_TOKEN,
-  INVALID_ADMIN_LOGIN
+  INVALID_ADMIN_LOGIN,
+  INVALID_USER_LOGIN
 };

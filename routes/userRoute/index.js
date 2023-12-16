@@ -1,12 +1,13 @@
 const express = require('express');
 
 const {
-  createUser, getUsers, getUser, deleteUser, updateUser
+  createUser, getUsers, getUser, deleteUser, updateUser, loginUser
 } = require('../../controllers/userController');
 const validateSchema = require('../../middlewares/validateSchema');
 const authenticateAdmin = require('../../middlewares/authenticateAdmin');
 const {
-  createUserSchema, getUserSchema, deleteUserSchema, updateUserSchema
+  createUserSchema, getUserSchema, deleteUserSchema, updateUserSchema,
+  loginUserSchema
 } = require('./schema');
 
 const router = express.Router();
@@ -20,6 +21,12 @@ router.route('/users')
   .get(
     authenticateAdmin,
     getUsers
+  );
+
+router.route('/users/login')
+  .post(
+    validateSchema(loginUserSchema),
+    loginUser
   );
 
 router.route('/users/:userId')

@@ -30,9 +30,17 @@ const createUserSchema = {
   }).unknown()
 };
 
+const loginUserSchema = {
+  body: Joi.object().keys({
+    email: Joi.string().required(),
+    password: Joi.string().required()
+  }).unknown()
+};
+
 module.exports = {
   createUserSchema,
   getUserSchema,
   deleteUserSchema,
-  updateUserSchema
+  updateUserSchema,
+  loginUserSchema
 };
