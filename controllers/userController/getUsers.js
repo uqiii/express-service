@@ -1,16 +1,12 @@
 const asyncHandler = require('express-async-handler');
 
 const User = require('../../models/user');
+const mapUser = require('../../mapper/mapUser');
 
 const getUser = asyncHandler(async () => {
   const users = await User.find();
 
-  const mappedUsers = users.map((user) => ({
-    id: user._id,
-    name: user.name,
-    email: user.email
-  }));
-  return mappedUsers;
+  return users.map(mapUser);
 });
 
 module.exports = getUser;

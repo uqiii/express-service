@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 const User = require('../../models/user');
 const createError = require('../../utils/createError');
 const { USER_NOT_FOUND, USER_UPDATE_FAILED, USER_INVALID_PASSWORD } = require('../../errors');
+const mapUser = require('../../mapper/mapUser');
 
 const updateUserPassword = asyncHandler(async (userId, payload) => {
   const { oldPassword, newPassword } = payload;
@@ -26,11 +27,7 @@ const updateUserPassword = asyncHandler(async (userId, payload) => {
   );
   if (!updatedUser) throw createError(USER_UPDATE_FAILED);
 
-  return {
-    id: updatedUser._id,
-    name: updatedUser.name,
-    email: updatedUser.email
-  };
+  return mapUser(user);
 });
 
 module.exports = updateUserPassword;

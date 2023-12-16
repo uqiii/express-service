@@ -42,7 +42,9 @@ const createUserSchema = {
   body: Joi.object().keys({
     name: Joi.string().required(),
     email: Joi.string().required(),
-    password: Joi.string().required()
+    password: Joi.string().required(),
+    position: Joi.string().required(),
+    avatar: Joi.string()
   }).unknown()
 };
 

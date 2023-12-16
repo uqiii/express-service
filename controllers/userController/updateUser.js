@@ -3,6 +3,7 @@ const asyncHandler = require('express-async-handler');
 const User = require('../../models/user');
 const createError = require('../../utils/createError');
 const { USER_NOT_FOUND, USER_UPDATE_FAILED } = require('../../errors');
+const mapUser = require('../../mapper/mapUser');
 
 const updateUser = asyncHandler(async (userId, payload) => {
   const user = await User.findOne({ _id: userId });
@@ -15,11 +16,7 @@ const updateUser = asyncHandler(async (userId, payload) => {
   );
   if (!updatedUser) throw createError(USER_UPDATE_FAILED);
 
-  return {
-    id: updatedUser._id,
-    name: updatedUser.name,
-    email: updatedUser.email
-  };
+  return mapUser(user);
 });
 
 module.exports = updateUser;

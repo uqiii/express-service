@@ -14,6 +14,13 @@ const userSchema = mongoose.Schema(
     password: {
       type: String,
       required: [true, 'Please add the user password']
+    },
+    position: {
+      type: String,
+      required: [true, 'Please add the user position']
+    },
+    avatar: {
+      type: String
     }
   },
   {
