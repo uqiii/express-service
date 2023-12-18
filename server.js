@@ -1,5 +1,6 @@
 const express = require('express');
 require('dotenv').config();
+const cors = require('cors');
 
 const connectDb = require('./config/dbConnection');
 const routes = require('./routes');
@@ -10,12 +11,16 @@ const port = process.env.PORT || 3000;
 const runServer = async () => {
   console.log('Connecting to database...');
   await connectDb();
+
   console.log('Starting service...');
   const app = express();
+  app.use(cors());
   app.use(express.json());
+
   console.log('Registering routes...');
   routes.forEach((route) => app.use(route));
   console.log('All routes has been registered');
+
   app.use(errorHandler);
 
   app.listen(port, () => {
